@@ -57,7 +57,11 @@ var addCmd = &cobra.Command{
 					logger.Fatalln("Not enough arguments passed")
 				}
 				category.Name = args[0]
-				sqlDb.InsertRow("categories", &category)
+				err = sqlDb.InsertRow("categories", &category)
+				if err != nil {
+					logger.Println("Failed to Write to the table")
+					logger.Fatalln(err)
+				}
 			}
 		}
 
@@ -69,7 +73,11 @@ var addCmd = &cobra.Command{
 		if isUser {
 			user := models.User{}
 			user.Name = args[0]
-			sqlDb.InsertRow("users", &user)
+			err = sqlDb.InsertRow("users", &user)
+			if err != nil {
+				logger.Println("Failed to Write to the table")
+				logger.Fatalln(err)
+			}
 		}
 
 		// Add admin user
@@ -81,7 +89,11 @@ var addCmd = &cobra.Command{
 			user := models.User{}
 			user.Name = args[0]
 			user.IsAdmin = true
-			sqlDb.InsertRow("users", &user)
+			err = sqlDb.InsertRow("users", &user)
+			if err != nil {
+				logger.Println("Failed to Write to the table")
+				logger.Fatalln(err)
+			}
 		}
 	},
 }
