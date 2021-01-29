@@ -2,7 +2,7 @@ package models
 
 // Product - specifies product type
 type Product struct {
-	ID           uint `gorm:"primarykey"`
+	ID           uint `gorm:"primarykey;autoIncrement"`
 	CategoryName string
 	Category     Category `gorm:"foreignKey:CategoryName"`
 	Name         string   `gorm:"unique;not null"`
@@ -11,13 +11,13 @@ type Product struct {
 
 // Category - specifies category type
 type Category struct {
-	ID   uint   `gorm:"primarykey"`
+	ID   uint   `gorm:"primarykey;autoIncrement"`
 	Name string `gorm:"unique;not null"`
 }
 
 // Cart - describes cart type userID is assummed to be cart ID
 type Cart struct {
-	ID           uint `gorm:"primarykey"`
+	ID           uint `gorm:"primarykey;autoIncrement"`
 	UserID       uint
 	User         User `gorm:"foreignKey:UserID"`
 	ProductID    uint
@@ -26,7 +26,7 @@ type Cart struct {
 
 // Invoice - describes bill
 type Invoice struct {
-	ID          uint `gorm:"primarykey"`
+	ID          uint `gorm:"primarykey;autoIncrement"`
 	UserID      uint
 	User        User `gorm:"foreignKey:UserID"`
 	TotalAmount float64
@@ -36,7 +36,7 @@ type Invoice struct {
 
 // User - decribes user
 type User struct {
-	ID      uint   `gorm:"primarykey"`
+	ID      uint   `gorm:"primarykey;autoIncrement"`
 	Name    string `gorm:"unique;not null" json:"name"`
 	IsAdmin bool   `json:"isAdmin"`
 }

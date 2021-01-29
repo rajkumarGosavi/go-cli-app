@@ -15,7 +15,6 @@ var checkoutCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		cartProducts := []models.Product{}
 		sqlDb.FetchCartProducts(user.ID, &cartProducts)
-
 		var totalAmount, finalAmount, discountedAmount float64
 		for _, product := range cartProducts {
 			totalAmount += product.Price

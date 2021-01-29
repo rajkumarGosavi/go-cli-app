@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	"fmt"
 	"mycart/helpers"
 	"mycart/models"
 
@@ -30,14 +29,13 @@ var listCmd = &cobra.Command{
 		if isProd {
 			catName, err := cmd.Flags().GetString("categoryName")
 			if err != nil {
-				fmt.Println("er", err)
+				logger.Fatalln("Failed to get `categoryName` flag\n", err)
 			}
 			if catName == "" {
 				logger.Fatalln("Specify category name")
 			}
 			products := []models.Product{}
 			sqlDb.FetchProductsOfCategory(catName, &products)
-			fmt.Println("Category:", catName)
 			helpers.PrintProducts(products)
 		}
 

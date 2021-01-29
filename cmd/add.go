@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	"fmt"
 	"mycart/db"
 	"mycart/helpers"
 	"mycart/models"
@@ -30,18 +29,17 @@ var addCmd = &cobra.Command{
 			// Add product
 			if isProd {
 				product := models.Product{}
-				fmt.Println(args, len(args))
 				if len(args) != 3 {
 					logger.Fatalln("Not enough arguments passed.")
 				}
 				// category := models.Category{Name: args[0]}
 				product.CategoryName = args[0]
 				product.Name = args[1]
-				price, err := strconv.Atoi(args[2])
+				price, err := strconv.ParseFloat(args[2], 64)
 				if err != nil {
 					logger.Fatalln("Failed to convert price to int \n", err)
 				}
-				product.Price = float64(price)
+				product.Price = price
 				err = sqlDb.InsertRow("products", &product)
 				if err != nil {
 					logger.Println("Failed to Write to the table")

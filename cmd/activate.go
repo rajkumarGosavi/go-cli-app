@@ -26,7 +26,7 @@ var activateCmd = &cobra.Command{
 		user := models.User{}
 		sqlDb.GetUserDetails(userID, &user)
 		helpers.SaveUser(&user)
-		logger.Printf("User %d is activated", userID)
+		logger.Printf("User %d is activated", user.ID)
 	},
 }
 

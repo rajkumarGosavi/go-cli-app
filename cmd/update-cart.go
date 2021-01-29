@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	"fmt"
 	"mycart/models"
 
 	"github.com/spf13/cobra"
@@ -22,21 +21,12 @@ var updateCmd = &cobra.Command{
 
 		if addProduct != uint(0) {
 			product := models.Product{}
-			fmt.Println(addProduct)
 			sqlDb.FetchProductDetails(addProduct, &product)
-			// cartData := models.Cart{}
-			// cartData.UserID = user
-			// cp := models.CartProduct{}
-			// cartData.CartProducts = product
-			// cartData.ProductName = product.Name
-			// cartData.ProductPrice = product.Price
-			// sqlDb.InsertRow("cartproducts", &cp)
 
 			cartData := models.Cart{}
 			sqlDb.FetchCartDetails(user.ID, &cartData)
-
 			cartData.CartProducts = append(cartData.CartProducts, product)
-			final := models.Cart{UserID: cartData.UserID, CartProducts: cartData.CartProducts, ProductID: product.ID}
+			final := models.Cart{UserID: user.ID, ProductID: product.ID}
 			err = sqlDb.UpdateCart(&final)
 			if err != nil {
 				logger.Fatalln("Failed to add cart products \n", err)
